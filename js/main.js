@@ -1,14 +1,12 @@
 const mainPage = document.querySelector(`section.main`);
 const templates = document.querySelector(`#templates`);
 const pages = templates.content.children;
-const lastPage = --pages.length;
-let currentPage = 0;
 
-const btnAlt = 18;
+let currentPage = 0;
+const lastPage = --pages.length;
+
 const btnLeft = 37;
 const btnRight = 39;
-let altDown = false;
-
 
 function showPage(number) {
   const clonePage = pages[number].cloneNode(true);
@@ -17,28 +15,28 @@ function showPage(number) {
   mainPage.appendChild(clonePage);
 }
 
-// Главная страница при загрузке
-showPage(currentPage);
+function switchPage(e, next) {
+  e.preventDefault();
+
+  if (next && currentPage < lastPage) {
+    showPage(++currentPage);
+    return;
+  }
+
+  if (currentPage > 0 && !next) {
+    showPage(--currentPage);
+  }
+}
 
 document.addEventListener(`keydown`, function (e) {
-  // Нажата ли кнопка "Alt"
-  if (e.keyCode === btnAlt) {
-    altDown = true;
+  if (e.keyCode === btnRight && e.altKey) {
+    switchPage(e, true);
   }
 
-  // Нажали ли стрелку влево или вправо
-  if (e.keyCode === btnLeft && currentPage - 1 >= 0) {
-    e.preventDefault();
-    showPage(--currentPage);
-  } else if (e.keyCode === btnRight && currentPage + 1 <= lastPage) {
-    e.preventDefault();
-    showPage(++currentPage);
+  if (e.keyCode === btnLeft && e.altKey) {
+    switchPage(e);
   }
 });
 
-document.addEventListener(`keyup`, function (e) {
-  // Отпустили ли кнопку "Alt"
-  if (e.keyCode === btnAlt) {
-    altDown = false;
-  }
-});
+// Главная страница при загрузке
+showPage(currentPage);

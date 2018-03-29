@@ -3,40 +3,40 @@ const templates = document.querySelector(`#templates`);
 const pages = templates.content.children;
 
 let currentPage = 0;
-const lastPage = --pages.length;
+const lastPage = pages.length - 1;
 
-const btnLeft = 37;
-const btnRight = 39;
+const BTN_LEFT_KEY = 37;
+const BTN_RIGHT_KEY = 39;
 
-function showPage(number) {
-  const clonePage = pages[number].cloneNode(true);
+
+function showPage(newPage) {
+  if (newPage === currentPage) {
+    return;
+  }
+  newPage = newPage || 0;
+  const clonePage = pages[newPage].cloneNode(true);
 
   mainPage.innerHTML = ``;
   mainPage.appendChild(clonePage);
-}
 
-function switchPage(e, next) {
-  e.preventDefault();
-
-  if (next && currentPage < lastPage) {
-    showPage(++currentPage);
-    return;
-  }
-
-  if (currentPage > 0 && !next) {
-    showPage(--currentPage);
-  }
+  currentPage = newPage;
 }
 
 document.addEventListener(`keydown`, function (e) {
-  if (e.keyCode === btnRight && e.altKey) {
-    switchPage(e, true);
+  if (!e.altKey) {
+    return;
   }
 
-  if (e.keyCode === btnLeft && e.altKey) {
-    switchPage(e);
+  const newPage = {
+    [BTN_LEFT_KEY]: Math.max(0, currentPage - 1),
+    [BTN_RIGHT_KEY]: Math.min(currentPage + 1, lastPage)
+  }[e.keyCode];
+
+  if (newPage !== undefined) {
+    e.preventDefault();
+    showPage(newPage);
   }
 });
 
 // Главная страница при загрузке
-showPage(currentPage);
+showPage();

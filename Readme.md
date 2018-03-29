@@ -1,7 +1,7 @@
 # Личный проект «Угадай мелодию» [![Build status][travis-image]][travis-url]
 
 * Студент: [Михаил Ламоткин](https://up.htmlacademy.ru/ecmascript/4/user/129211).
-* Наставник: `Ренат Туктаров`.
+* Наставник: [Ренат Туктаров](https://htmlacademy.ru/profile/id408799).
 
 ---
 

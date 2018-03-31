@@ -1,3 +1,7 @@
+import renderTemplate from './renderTemplate';
+
+console.log(renderTemplate(`<h1>Hello, World!</h1>`));
+
 const mainPage = document.querySelector(`section.main`);
 const templates = document.querySelector(`#templates`);
 const pages = templates.content.children;

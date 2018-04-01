@@ -1,42 +1,46 @@
-const mainPage = document.querySelector(`section.main`);
-const templates = document.querySelector(`#templates`);
-const pages = templates.content.children;
+import welcomePage from './templates/welcomePage';
+import artistPage from './templates/artistPage';
+import genrePage from './templates/genrePage';
+import resultPage from './templates/resultPage';
+import showPage from './modules/showPage';
 
-let currentPage = 0;
-const lastPage = pages.length - 1;
-
-const BTN_LEFT_KEY = 37;
-const BTN_RIGHT_KEY = 39;
-
-
-function showPage(newPage) {
-  if (newPage === currentPage) {
-    return;
-  }
-  newPage = newPage || 0;
-  const clonePage = pages[newPage].cloneNode(true);
-
-  mainPage.innerHTML = ``;
-  mainPage.appendChild(clonePage);
-
-  currentPage = newPage;
-}
-
-document.addEventListener(`keydown`, function (e) {
-  if (!e.altKey) {
-    return;
-  }
-
-  const newPage = {
-    [BTN_LEFT_KEY]: Math.max(0, currentPage - 1),
-    [BTN_RIGHT_KEY]: Math.min(currentPage + 1, lastPage)
-  }[e.keyCode];
-
-  if (newPage !== undefined) {
-    e.preventDefault();
-    showPage(newPage);
-  }
-});
 
 // Главная страница при загрузке
-showPage();
+showPage(welcomePage());
+
+document.querySelector(`.main`).onclick = function (e) {
+  // Начать игру
+  if (e.target.className === `main-play`) {
+    showPage(artistPage());
+  }
+
+  // Выбрать исполнителя
+  if (e.target.parentNode.className === `main-answer-wrapper`) {
+    showPage(genrePage());
+
+    const checkboxAnswer = document.querySelectorAll(`.genre-answer input`);
+
+    for (const item of checkboxAnswer) {
+      item.onclick = function () {
+        const btnSend = document.querySelector(`.genre-answer-send`);
+
+        if (document.querySelector(`.genre-answer input:checked`)) {
+          btnSend.disabled = false;
+          return;
+        }
+
+        btnSend.disabled = true;
+      };
+    }
+  }
+
+  // Страница с результатом
+  if (e.target.className === `genre-answer-send`) {
+    showPage(resultPage(Math.floor(Math.random() + 3)));
+  }
+
+  // Сыграть еще раз
+  if (e.target.className === `main-replay`) {
+    showPage(welcomePage(Math.floor(Math.random() + 3)));
+  }
+};

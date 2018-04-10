@@ -1,6 +1,40 @@
 import renderTemplate from "../modules/renderTemplate";
 
 export default function mainArtist() {
+  const artists = [
+    {
+      name: `Пелагея`,
+      photo: `http://placehold.it/134x134`
+    },
+    {
+      name: `Краснознаменная дивизия имени моей бабушки`,
+      photo: `http://placehold.it/134x134`
+    },
+    {
+      name: `Lorde`,
+      photo: `http://placehold.it/134x134`
+    }
+  ];
+
+  function getTemplateArtists(artistsData) {
+    let counter = 0;
+
+    return artistsData.map((curr) => {
+      counter++;
+
+      return (
+        `<div class="main-answer-wrapper">
+          <input class="main-answer-r" type="radio" id="answer-${counter}" name="answer" value="val-${counter}"/>
+          <label class="main-answer" for="answer-${counter}">
+            <img class="main-answer-preview" src="${curr.photo}"
+                 alt="Пелагея" width="134" height="134">
+            ${curr.name}
+          </label>
+        </div>`
+      );
+    });
+  }
+
   return renderTemplate(`
     <!-- Игра на выбор исполнителя -->
     <section class="main main--level main--level-artist">
@@ -33,32 +67,7 @@ export default function mainArtist() {
           </div>
         </div>
         <form class="main-list">
-          <div class="main-answer-wrapper">
-            <input class="main-answer-r" type="radio" id="answer-1" name="answer" value="val-1"/>
-            <label class="main-answer" for="answer-1">
-              <img class="main-answer-preview" src="http://placehold.it/134x134"
-                   alt="Пелагея" width="134" height="134">
-              Пелагея
-            </label>
-          </div>
-  
-          <div class="main-answer-wrapper">
-            <input class="main-answer-r" type="radio" id="answer-2" name="answer" value="val-2"/>
-            <label class="main-answer" for="answer-2">
-              <img class="main-answer-preview" src="http://placehold.it/134x134"
-                   alt="Краснознаменная дивизия имени моей бабушки" width="134" height="134">
-              Краснознаменная дивизия имени моей бабушки
-            </label>
-          </div>
-  
-          <div class="main-answer-wrapper">
-            <input class="main-answer-r" type="radio" id="answer-3" name="answer" value="val-3"/>
-            <label class="main-answer" for="answer-3">
-              <img class="main-answer-preview" src="http://placehold.it/134x134"
-                   alt="Lorde" width="134" height="134">
-              Lorde
-            </label>
-          </div>
+          ${getTemplateArtists(artists)}
         </form>
       </div>
     </section>`

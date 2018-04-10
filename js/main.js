@@ -36,11 +36,17 @@ document.querySelector(`.main`).onclick = function (e) {
 
   // Страница с результатом
   if (e.target.className === `genre-answer-send`) {
-    showPage(resultPage(Math.floor(Math.random() + 3)));
+    const results = [
+      `timeUp`,
+      `endAttempts`,
+      `win`
+    ];
+
+    showPage(resultPage(results[Math.floor(Math.random() + 2)]));
   }
 
   // Сыграть еще раз
   if (e.target.className === `main-replay`) {
-    showPage(welcomePage(Math.floor(Math.random() + 3)));
+    showPage(welcomePage());
   }
 };

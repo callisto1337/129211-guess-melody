@@ -1,17 +1,24 @@
 import {assert} from 'chai';
 import Timer from './timer';
 
-describe(`Array`, () => {
-  describe(`#indexOf()`, () => {
-    it(`должен вернуть корректное время`, () => {
-      const timer = new Timer(10);
+describe(`Timer`, () => {
+  it(`должен вернуть корректное время`, () => {
+    const timer = new Timer(10);
+    assert.deepEqual(timer.tick(), 9);
+  });
 
-      assert.deepEqual(timer.tick(), 9);
-    });
-    it(`должен вернуть null при нуле`, () => {
-      const timer = new Timer(0);
+  it(`должен вернуть null при нуле`, () => {
+    const timer = new Timer(0);
+    assert.deepEqual(timer.tick(), null);
+  });
 
-      assert.deepEqual(timer.tick(), null);
-    });
+  it(`должен вернуть null при отсутствии аргументов`, () => {
+    const timer = new Timer();
+    assert.deepEqual(timer.tick(), null);
+  });
+
+  it(`должен вернуть null при -1`, () => {
+    const timer = new Timer(-1);
+    assert.deepEqual(timer.tick(), null);
   });
 });

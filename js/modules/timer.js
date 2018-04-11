@@ -4,11 +4,7 @@ export default class Timer {
   }
 
   tick() {
-    if (this.timeLeft > 0) {
-      this.timeLeft--;
-      return this.timeLeft;
-    }
-
-    return null;
+    this.timeLeft = Math.max(0, this.timeLeft - 1);
+    return this.timeLeft || null;
   }
 }

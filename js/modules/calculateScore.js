@@ -3,16 +3,9 @@ export default function calculateScore(data, notes) {
     return -1;
   }
 
-  let score = 0;
+  return data.reduce((prev, curr) => {
+    const pointValue = curr.time < 30000 ? 1 : 2;
 
-  data.map((item) => {
-    if (item.status === false) {
-      score -= 2;
-      return;
-    }
-
-    score += item.time >= 30000 ? 2 : 1;
-  });
-
-  return score;
+    return curr.status === false ? prev - 2 : prev + pointValue;
+  }, 0);
 }

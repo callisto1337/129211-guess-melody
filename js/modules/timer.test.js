@@ -2,22 +2,22 @@ import {assert} from 'chai';
 import Timer from './timer';
 
 describe(`Timer`, () => {
-  it(`должен вернуть корректное время`, () => {
+  it(`should return the correct time`, () => {
     const timer = new Timer(10);
     assert.deepEqual(timer.tick(), 9);
   });
 
-  it(`должен вернуть null при нуле`, () => {
+  it(`should return null if zero`, () => {
     const timer = new Timer(0);
     assert.deepEqual(timer.tick(), null);
   });
 
-  it(`должен вернуть null при отсутствии аргументов`, () => {
+  it(`should return null if no arguments`, () => {
     const timer = new Timer();
     assert.deepEqual(timer.tick(), null);
   });
 
-  it(`должен вернуть null при -1`, () => {
+  it(`should return null if -1`, () => {
     const timer = new Timer(-1);
     assert.deepEqual(timer.tick(), null);
   });

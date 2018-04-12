@@ -12,8 +12,7 @@ export default function returnResult(results, userResults) {
     };
   }
 
-  results.push(userResults.score);
-  results.sort((a, b) => {
+  results = [userResults.score].concat(results).sort((a, b) => {
     return b - a;
   });
 

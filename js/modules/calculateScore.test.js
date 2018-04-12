@@ -2,33 +2,33 @@ import {assert} from 'chai';
 import calculateScore from './calculateScore';
 
 describe(`calculateScore`, () => {
+  it(`должен вернуть -1`, () => {
+    assert.deepEqual(calculateScore([
+      {status: false, time: 10000},
+      {status: true, time: 10000},
+      {status: false, time: 10000},
+      {status: true, time: 10000},
+      {status: true, time: 10000},
+      {status: true, time: 10000},
+      {status: false, time: 10000},
+      {status: false, time: 10000},
+      {status: true, time: 10000},
+      {status: true, time: 30000}], 3), -1);
+
+    assert.deepEqual(calculateScore([
+      {status: true, time: 10000},
+      {status: true, time: 10000},
+      {status: true, time: 10000},
+      {status: true, time: 10000},
+      {status: true, time: 10000},
+      {status: true, time: 10000},
+      {status: true, time: 10000},
+      {status: true, time: 10000},
+      {status: true, time: 10000},
+      {status: true, time: 30000}], 0), -1);
+  });
+
   it(`должен вернуть верное количество очков`, () => {
-    it(`должен вернуть -1`, () => {
-      assert.deepEqual(calculateScore([
-        {status: false, time: 10000},
-        {status: true, time: 10000},
-        {status: false, time: 10000},
-        {status: true, time: 10000},
-        {status: true, time: 10000},
-        {status: true, time: 10000},
-        {status: false, time: 10000},
-        {status: false, time: 10000},
-        {status: true, time: 10000},
-        {status: true, time: 30000}], 3), -1);
-
-      assert.deepEqual(calculateScore([
-        {status: true, time: 10000},
-        {status: true, time: 10000},
-        {status: true, time: 10000},
-        {status: true, time: 10000},
-        {status: true, time: 10000},
-        {status: true, time: 10000},
-        {status: true, time: 10000},
-        {status: true, time: 10000},
-        {status: true, time: 10000},
-        {status: true, time: 30000}], 0), -1);
-    });
-
     assert.deepEqual(calculateScore([
       {status: false, time: 10000},
       {status: true, time: 10000},

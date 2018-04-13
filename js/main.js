@@ -4,6 +4,7 @@ import genrePage from './templates/genrePage';
 import resultPage from './templates/resultPage';
 import showPage from './modules/showPage';
 
+import artists from './data/artists';
 
 // Главная страница при загрузке
 showPage(welcomePage());
@@ -11,7 +12,7 @@ showPage(welcomePage());
 document.querySelector(`.main`).onclick = function (e) {
   // Начать игру
   if (e.target.className === `main-play`) {
-    showPage(artistPage());
+    showPage(artistPage(artists));
   }
 
   // Выбрать исполнителя

@@ -7,7 +7,7 @@ import player from "./layouts/player";
 function getTemplateArtists(data) {
   let counter = 0;
 
-  return data.slice(0, 3).map((curr) => {
+  return data.map((curr) => {
     counter++;
 
     return (
@@ -23,13 +23,13 @@ function getTemplateArtists(data) {
   });
 }
 
-export default (artists) => {
+export default (artists, notes, rightArtist) => {
   return renderTemplate(`
     <section class="main main--level main--level-artist">
-      ${header()}
+      ${header(notes)}
       <div class="main-wrap">
         ${title(`Кто исполняет эту песню?`)}
-        ${player()}
+        ${player(artists[rightArtist].src)}
         <form class="main-list">
           ${getTemplateArtists(artists)}
         </form>

@@ -2,7 +2,7 @@ import renderTemplate from "../modules/renderTemplate";
 import title from "./layouts/title";
 
 
-export default function showWelcomePage() {
+export default () => {
   return renderTemplate(`
     <section class="main main--welcome">
       <section class="logo" title="Угадай мелодию">
@@ -17,4 +17,4 @@ export default function showWelcomePage() {
       </p>
     </section>`
   );
-}
+};

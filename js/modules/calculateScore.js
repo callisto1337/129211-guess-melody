@@ -1,4 +1,4 @@
-export default function calculateScore(data, notes) {
+export default (data, notes) => {
   if (data.length < 10 || notes === 0) {
     return -1;
   }
@@ -8,4 +8,4 @@ export default function calculateScore(data, notes) {
 
     return curr.status === false ? prev - 2 : prev + pointValue;
   }, 0);
-}
+};

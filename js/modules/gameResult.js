@@ -1,4 +1,4 @@
-export default function returnResult(results, userResults) {
+export default (results, userResults) => {
   if (userResults.notes === 0) {
     return {
       data: null,
@@ -20,9 +20,14 @@ export default function returnResult(results, userResults) {
 
   const place = results.lastIndexOf(userResults.score) + 1;
   const playersCount = results.length;
-
   const percent = (playersCount - place) / playersCount;
   const formattedPercent = percent.toString().slice(2, 4) || `100`;
+  const scores = userResults.scores;
+  const mistakes = {
+    3: `0 ошибок`,
+    2: `1 ошибку`,
+    1: `2 ошибки`
+  }[userResults.notes];
 
   return {
     data: {
@@ -31,7 +36,7 @@ export default function returnResult(results, userResults) {
       percent: formattedPercent,
     },
     title: `Вы настоящий меломан!`,
-    description: `Вы заняли ${place} место из ${results.length} игроков. Это лучше, чем у ${formattedPercent}% игроков`,
-    stats: `За&nbsp;3&nbsp;минуты и 25&nbsp;секунд <br>вы&nbsp;набрали 12 баллов (8 быстрых) <br>совершив 3 ошибки`
+    description: `За&nbsp;3&nbsp;минуты и 25&nbsp;секунд <br>вы&nbsp;набрали ${scores} баллов (8 быстрых) <br>совершив ${mistakes}`,
+    stats: `Вы заняли ${place} место из ${playersCount} игроков. Это лучше, чем у ${formattedPercent}% игроков`
   };
-}
+};

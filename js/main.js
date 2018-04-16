@@ -4,58 +4,91 @@ import genrePage from './templates/genrePage';
 import resultPage from './templates/resultPage';
 import showPage from './modules/showPage';
 import gameResult from './modules/gameResult';
+import calculateScore from './modules/calculateScore';
+
 import artists from './data/artists';
 
-const resultGame = [];
+let currentGame = {
+  data: [],
+  notes: 3,
+  stats: 0,
+  scores: 0
+};
+const artistVariants = () => {
+  const randomNumber = Math.round(Math.random() * 2);
+  return artists.slice(randomNumber, randomNumber + 3);
+};
+const rightArtist = () => {
+  return Math.round(Math.random() * 2);
+};
+
 
 // Главная страница при загрузке
 showPage(welcomePage());
 
+// Конец игры
+const endGame = () => {
+  currentGame.scores = calculateScore(currentGame.data);
+  showPage(resultPage(gameResult([], currentGame)));
+  currentGame = {
+    data: [],
+    notes: 3,
+    stats: 0
+  };
+
+  // Сыграть еще раз
+  document.querySelector(`.main-replay`).onclick = () => {
+    showPage(welcomePage());
+  };
+};
+
 document.querySelector(`.main`).onclick = function (e) {
   // Начать игру
   if (e.target.className === `main-play`) {
-    showPage(artistPage(artists));
+    showPage(artistPage(artistVariants(), currentGame.notes, rightArtist()));
   }
 
-
   if (e.target.parentNode.className === `main-answer-wrapper`) {
-    resultGame.push({
-      status: false,
+    const rightAnswer = e.target.id === `answer-${rightArtist() + 1}`;
+
+    currentGame.data.push({
+      status: rightAnswer,
       time: 10000
     });
-    if (resultGame.length < 10) {
-      showPage(artistPage(artists));
+
+    if (!rightAnswer) {
+      currentGame.notes -= 1;
     }
-    else {
-      // Выбрать исполнителя
-      if (e.target.parentNode.className === `main-answer-wrapper`) {
-        showPage(genrePage());
 
-        const checkboxAnswer = document.querySelectorAll(`.genre-answer input`);
+    if (currentGame.notes < 1) {
+      endGame();
+      return;
+    }
 
-        for (const item of checkboxAnswer) {
-          item.onclick = function () {
-            const btnSend = document.querySelector(`.genre-answer-send`);
+    if (currentGame.data.length < 10) {
+      showPage(artistPage(artistVariants(), currentGame.notes, rightArtist()));
+    } else {
+      // Игра на выбор жанра
+      showPage(genrePage());
 
-            if (document.querySelector(`.genre-answer input:checked`)) {
-              btnSend.disabled = false;
-              return;
-            }
+      const checkboxAnswer = document.querySelectorAll(`.genre-answer input`);
 
-            btnSend.disabled = true;
-          };
-        }
+      for (const item of checkboxAnswer) {
+        item.onclick = function () {
+          const btnSend = document.querySelector(`.genre-answer-send`);
+
+          if (document.querySelector(`.genre-answer input:checked`)) {
+            btnSend.disabled = false;
+            return;
+          }
+
+          btnSend.disabled = true;
+        };
       }
 
-      // Страница с результатом
-      if (e.target.className === `genre-answer-send`) {
-        showPage(resultPage(gameResult([], resultGame)));
-      }
-
-      // Сыграть еще раз
-      if (e.target.className === `main-replay`) {
-        showPage(welcomePage());
-      }
+      document.querySelector(`.genre-answer-send`).onclick = () => {
+        endGame();
+      };
     }
   }
 };

@@ -1,9 +1,9 @@
 import {assert} from 'chai';
-import returnResult from './returnResult';
+import gameResult from './gameResult';
 
-describe(`returnResult`, () => {
+describe(`gameResult`, () => {
   it(`should return the correct result of the game`, () => {
-    const callFunction = returnResult([4, 5, 8, 10, 11], {
+    const callFunction = gameResult([4, 5, 8, 10, 11], {
       score: 11,
       notes: 2,
       time: 10000
@@ -20,7 +20,7 @@ describe(`returnResult`, () => {
   });
 
   it(`should return the correct result of the first game`, () => {
-    const callFunction = returnResult([], {
+    const callFunction = gameResult([], {
       score: 11,
       notes: 2,
       time: 10000
@@ -36,7 +36,7 @@ describe(`returnResult`, () => {
   });
 
   it(`should return the correct result of a failed game (attempts)`, () => {
-    const callFunction = returnResult([4, 5, 8, 10, 11], {
+    const callFunction = gameResult([4, 5, 8, 10, 11], {
       score: 11,
       notes: 0,
       time: 300
@@ -45,7 +45,7 @@ describe(`returnResult`, () => {
   });
 
   it(`should return the correct result of a failed game (time)`, () => {
-    const callFunction = returnResult([4, 5, 8, 10, 11], {
+    const callFunction = gameResult([4, 5, 8, 10, 11], {
       score: 11,
       notes: 2,
       time: 0
@@ -54,7 +54,7 @@ describe(`returnResult`, () => {
   });
 
   it(`should return a correct result with incorrect data`, () => {
-    const callFunction = returnResult([4, 5, 8, 10, 11], {
+    const callFunction = gameResult([4, 5, 8, 10, 11], {
       score: 0,
       notes: 0,
       time: 0

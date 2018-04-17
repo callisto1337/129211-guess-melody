@@ -14,9 +14,9 @@ let currentGame = {
   stats: 0,
   scores: 0
 };
-const artistVariants = () => {
+const artistVariants = (count) => {
   const randomNumber = Math.round(Math.random() * 2);
-  return artists.slice(randomNumber, randomNumber + 3);
+  return artists.slice(randomNumber, randomNumber + count);
 };
 const rightArtist = () => {
   return Math.round(Math.random() * 2);
@@ -45,7 +45,7 @@ const endGame = () => {
 document.querySelector(`.main`).onclick = function (e) {
   // Начать игру
   if (e.target.className === `main-play`) {
-    showPage(artistPage(artistVariants(), currentGame.notes, rightArtist()));
+    showPage(artistPage(artistVariants(3), currentGame.notes, rightArtist()));
   }
 
   if (e.target.parentNode.className === `main-answer-wrapper`) {
@@ -66,10 +66,10 @@ document.querySelector(`.main`).onclick = function (e) {
     }
 
     if (currentGame.data.length < 10) {
-      showPage(artistPage(artistVariants(), currentGame.notes, rightArtist()));
+      showPage(artistPage(artistVariants(3), currentGame.notes, rightArtist()));
     } else {
       // Игра на выбор жанра
-      showPage(genrePage());
+      showPage(genrePage(artistVariants(4)));
 
       const checkboxAnswer = document.querySelectorAll(`.genre-answer input`);
 

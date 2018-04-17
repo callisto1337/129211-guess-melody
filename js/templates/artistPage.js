@@ -6,21 +6,22 @@ import player from "./layouts/player";
 
 function getTemplateArtists(data) {
   let counter = 0;
+  let result = ``;
 
-  return data.map((curr) => {
+  data.forEach((curr) => {
     counter++;
-
-    return (
-      `<div class="main-answer-wrapper">
-          <input class="main-answer-r" type="radio" id="answer-${counter}" name="answer" value="val-${counter}"/>
-          <label class="main-answer" for="answer-${counter}">
-            <img class="main-answer-preview" src="${curr.image}"
-                 alt="${curr.artist}" width="134" height="134">
-            ${curr.artist}
-          </label>
-        </div>`
-    );
+    result += `
+      <div class="main-answer-wrapper">
+        <input class="main-answer-r" type="radio" id="answer-${counter}" name="answer" value="val-${counter}"/>
+        <label class="main-answer" for="answer-${counter}">
+          <img class="main-answer-preview" src="${curr.image}"
+               alt="${curr.artist}" width="134" height="134">
+          ${curr.artist}
+        </label>
+      </div>`;
   });
+
+  return result;
 }
 
 export default (artists, notes, rightArtist) => {

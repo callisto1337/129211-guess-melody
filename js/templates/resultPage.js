@@ -1,5 +1,4 @@
 import renderTemplate from "../modules/renderTemplate";
-// import resultData from '../data/result';
 import title from './layouts/title';
 
 

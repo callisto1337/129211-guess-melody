@@ -15,7 +15,7 @@ describe(`gameResult`, () => {
     }, {
       place: 2,
       playersCount: 6,
-      percent: `66`
+      percent: 66
     });
   });
 
@@ -32,7 +32,7 @@ describe(`gameResult`, () => {
     }, {
       place: 1,
       playersCount: 1,
-      percent: `100`});
+      percent: 100});
   });
 
   it(`should return the correct result of a failed game (attempts)`, () => {

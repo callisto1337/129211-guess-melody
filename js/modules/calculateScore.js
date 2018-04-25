@@ -6,6 +6,6 @@ export default (data, notes) => {
   return data.reduce((prev, curr) => {
     const pointValue = curr.time < 30000 ? 1 : 2;
 
-    return curr.status === false ? prev - 2 : prev + pointValue;
+    return curr.status ? prev + pointValue : prev - 2;
   }, 0);
 };

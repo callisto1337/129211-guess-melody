@@ -18,11 +18,11 @@ export default (results, userResults) => {
     return b - a;
   });
 
-  const place = results.lastIndexOf(userResults.score) + 1;
+  const score = userResults.score;
+  const place = results.lastIndexOf(score) + 1;
   const playersCount = results.length;
   const percent = (playersCount - place) / playersCount;
-  const formattedPercent = percent.toString().slice(2, 4) || `100`;
-  const scores = userResults.scores;
+  const formattedPercent = Math.floor(percent * 100) || 100;
   const mistakes = {
     3: `0 ошибок`,
     2: `1 ошибку`,
@@ -36,7 +36,7 @@ export default (results, userResults) => {
       percent: formattedPercent,
     },
     title: `Вы настоящий меломан!`,
-    description: `За&nbsp;3&nbsp;минуты и 25&nbsp;секунд <br>вы&nbsp;набрали ${scores} баллов (8 быстрых) <br>совершив ${mistakes}`,
+    description: `За&nbsp;3&nbsp;минуты и 25&nbsp;секунд <br>вы&nbsp;набрали ${score} баллов (0 быстрых) <br>совершив ${mistakes}`,
     stats: `Вы заняли ${place} место из ${playersCount} игроков. Это лучше, чем у ${formattedPercent}% игроков`
   };
 };
